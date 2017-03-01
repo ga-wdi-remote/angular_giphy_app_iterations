@@ -3,7 +3,7 @@ function AuthController($http, $state, $scope, $rootScope, AuthTokenFactory) {
   var server = 'http://localhost:3000'
 
   function signup(userPass) {
-    $http.post(`${server}/users`, { user: userPass })
+    $http.post(`${server}/users`, { user: userPass } )
       .then(function(response) {
         $state.go('login');
       });
@@ -12,6 +12,7 @@ function AuthController($http, $state, $scope, $rootScope, AuthTokenFactory) {
   function login(userPass) {
     $http.post(`${server}/users/login`, { user: userPass } )
       .then(function(response) {
+        console.log(response.data)
         AuthTokenFactory.setToken(response.data.token)
 
         $scope.$emit('userLoggedIn', response.data.user);
@@ -21,8 +22,8 @@ function AuthController($http, $state, $scope, $rootScope, AuthTokenFactory) {
   }
 
   function logout() {
-    AuthTokenFactory.setToken();
-
+    AuthTokenFactory.setToken()
+    
     $scope.$emit('userLoggedOut');
     $state.go('index');
   }
