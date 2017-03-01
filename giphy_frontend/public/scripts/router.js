@@ -2,10 +2,6 @@ angular.module('giphyAngularApp', ['ui.router'])
 .config(GiphyRouter)
 .config(authInterceptor)
 
-function authInterceptor($httpProvider) {
-  $httpProvider.interceptors.push('AuthInterceptor')
-}
-
 function GiphyRouter($stateProvider, $urlRouterProvider){
 
   $urlRouterProvider.otherwise('/');
@@ -34,4 +30,8 @@ function GiphyRouter($stateProvider, $urlRouterProvider){
     url: '/users/:userId/update-gif/:gifId',
     templateUrl: '/partials/update_gif.html'
   })
+}
+
+function authInterceptor($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
 }
